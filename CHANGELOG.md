@@ -10,6 +10,7 @@ All notable project changes are recorded here.
 - Added a Material 3 starter experience, Dart package configuration, lint rules, and a widget smoke test.
 - Added GitHub Actions formatting, static-analysis, and test steps, plus Flutter/Dart ignore rules.
 - Migrated to Flutter's standalone `material_ui` package and cleaned up const-constructor lints.
+- Verified the foundation app on Flutter 3.50 stable: formatting, static analysis, and the widget smoke test all pass in GitHub Actions.
 
 ### Planned
 - Add the initial Flutter app scaffold, baseline tests, and continuous integration.
