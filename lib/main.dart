@@ -117,7 +117,7 @@ class FoundationScreen extends StatelessWidget {
                       'Understand the real need before deciding what to build.',
                 ),
                 const SizedBox(height: 12),
-                _FoundationCard(
+                const _FoundationCard(
                   icon: Icons.design_services_outlined,
                   eyebrow: 'THE EXPERIENCE',
                   title: 'Simple. Thoughtful. Mobile-first.',
@@ -125,7 +125,7 @@ class FoundationScreen extends StatelessWidget {
                       'Make every screen feel clear, useful, and easy to use.',
                 ),
                 const SizedBox(height: 12),
-                _FoundationCard(
+                const _FoundationCard(
                   icon: Icons.rocket_launch_outlined,
                   eyebrow: 'THE PLAN',
                   title: 'Build it step by step.',
