@@ -1,0 +1,30 @@
+# Dart / Flutter
+.dart_tool/
+.packages
+.pub/
+build/
+.flutter-plugins
+.flutter-plugins-dependencies
+.metadata
+
+# IDE
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.iml
+
+# Android
+/android/local.properties
+/android/key.properties
+/android/**/GeneratedPluginRegistrant.java
+
+# iOS / macOS
+/ios/Flutter/.last_build_id
+/ios/Pods/
+/ios/.symlinks/
+/macos/Pods/
+
+# Secrets and local environment
+.env
+.env.*
+!.env.example
