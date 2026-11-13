@@ -62,9 +62,9 @@ class FoundationScreen extends StatelessWidget {
                     Text(
                       'SLAM',
                       style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                            fontWeight: FontWeight.w900,
-                            letterSpacing: 2.2,
-                          ),
+                        fontWeight: FontWeight.w900,
+                        letterSpacing: 2.2,
+                      ),
                     ),
                     const Spacer(),
                     DecoratedBox(
@@ -93,10 +93,10 @@ class FoundationScreen extends StatelessWidget {
                 Text(
                   'Something useful\nis taking shape.',
                   style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-                        fontWeight: FontWeight.w800,
-                        height: 1.08,
-                        letterSpacing: -1.1,
-                      ),
+                    fontWeight: FontWeight.w800,
+                    height: 1.08,
+                    letterSpacing: -1.1,
+                  ),
                 ),
                 const SizedBox(height: 16),
                 Text(
@@ -104,9 +104,9 @@ class FoundationScreen extends StatelessWidget {
                   'that matter most. We are starting with the idea, '
                   'listening carefully, and building it right.',
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                        color: colors.onSurfaceVariant,
-                        height: 1.55,
-                      ),
+                    color: colors.onSurfaceVariant,
+                    height: 1.55,
+                  ),
                 ),
                 const SizedBox(height: 32),
                 _FoundationCard(
@@ -138,10 +138,10 @@ class FoundationScreen extends StatelessWidget {
                     'BUILT WITH FLUTTER  •  POWERED BY A GOOD IDEA',
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                          color: colors.outline,
-                          fontWeight: FontWeight.w700,
-                          letterSpacing: 0.8,
-                        ),
+                      color: colors.outline,
+                      fontWeight: FontWeight.w700,
+                      letterSpacing: 0.8,
+                    ),
                   ),
                 ),
               ],
@@ -199,25 +199,25 @@ class _FoundationCard extends StatelessWidget {
                   Text(
                     eyebrow,
                     style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                          color: colors.primary,
-                          fontWeight: FontWeight.w800,
-                          letterSpacing: 1,
-                        ),
+                      color: colors.primary,
+                      fontWeight: FontWeight.w800,
+                      letterSpacing: 1,
+                    ),
                   ),
                   const SizedBox(height: 5),
                   Text(
                     title,
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.w800,
-                        ),
+                      fontWeight: FontWeight.w800,
+                    ),
                   ),
                   const SizedBox(height: 5),
                   Text(
                     description,
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: colors.onSurfaceVariant,
-                          height: 1.4,
-                        ),
+                      color: colors.onSurfaceVariant,
+                      height: 1.4,
+                    ),
                   ),
                 ],
               ),
