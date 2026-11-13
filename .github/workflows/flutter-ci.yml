@@ -26,6 +26,9 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
+      - name: Preview formatter output
+        run: dart format --output=show .
+
       - name: Check formatting
         run: dart format --output=none --set-exit-if-changed .
 
