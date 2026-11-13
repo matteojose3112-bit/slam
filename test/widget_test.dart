@@ -9,6 +9,8 @@ void main() {
     expect(find.text('Something useful\nis taking shape.'), findsOneWidget);
     expect(find.text('THE IDEA'), findsOneWidget);
     expect(find.text('THE EXPERIENCE'), findsOneWidget);
+
+    await tester.scrollUntilVisible(find.text('THE PLAN'), 300);
     expect(find.text('THE PLAN'), findsOneWidget);
   });
 }
