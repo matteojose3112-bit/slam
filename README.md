@@ -42,7 +42,11 @@ Dependencies will be added when needed rather than front-loading the project wit
 ├── docs/
 │   ├── PRODUCT_BRIEF.md
 │   └── ARCHITECTURE.md
+├── .github/
+│   └── workflows/
+│       └── flutter-ci.yml
 ├── analysis_options.yaml
+├── .gitignore
 ├── pubspec.yaml
 ├── CHANGELOG.md
 └── ROADMAP.md
