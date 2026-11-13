@@ -79,12 +79,11 @@ class FoundationScreen extends StatelessWidget {
                         ),
                         child: Text(
                           'IN THE MAKING',
-                          style:
-                              Theme.of(context).textTheme.labelSmall?.copyWith(
-                                    color: colors.onPrimaryContainer,
-                                    fontWeight: FontWeight.w800,
-                                    letterSpacing: 0.7,
-                                  ),
+                          style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                            color: colors.onPrimaryContainer,
+                            fontWeight: FontWeight.w800,
+                            letterSpacing: 0.7,
+                          ),
                         ),
                       ),
                     ),
