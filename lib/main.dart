@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 void main() {
   runApp(const SlamApp());
@@ -109,7 +109,7 @@ class FoundationScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 32),
-                _FoundationCard(
+                const _FoundationCard(
                   icon: Icons.lightbulb_outline_rounded,
                   eyebrow: 'THE IDEA',
                   title: 'Start with what matters.',
