@@ -21,7 +21,7 @@ SLAM is the seventh project in this portfolio and the dedicated home for mobile 
 |---|---|
 | Language | Dart |
 | Mobile framework | Flutter |
-| UI | Material 3, responsive layouts |
+| UI | Material 3 via `material_ui`, responsive layouts |
 | Architecture | Feature-first, modular |
 | State management | Riverpod (introduce with first meaningful stateful feature) |
 | Navigation | GoRouter (introduce when multiple routes are needed) |
