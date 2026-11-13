@@ -9,7 +9,7 @@ This roadmap separates foundational engineering from product decisions. Feature 
 - [x] Define initial architecture and dependency principles
 - [x] Add the runnable Flutter application scaffold
 - [x] Add baseline formatting, analysis, and widget tests
-- [ ] Add GitHub Actions CI for Flutter checks
+- [x] Add GitHub Actions CI for Flutter checks
 
 ## Phase 1 — Product discovery
 
