@@ -7,8 +7,8 @@ This roadmap separates foundational engineering from product decisions. Feature 
 - [x] Establish the public repository and project identity
 - [x] Select Dart and Flutter for Android/iOS
 - [x] Define initial architecture and dependency principles
-- [ ] Add the runnable Flutter application scaffold
-- [ ] Add baseline formatting, analysis, and widget tests
+- [x] Add the runnable Flutter application scaffold
+- [x] Add baseline formatting, analysis, and widget tests
 - [ ] Add GitHub Actions CI for Flutter checks
 
 ## Phase 1 — Product discovery
