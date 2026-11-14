@@ -1,43 +1,57 @@
 # SLAM Roadmap
 
-This roadmap separates foundational engineering from product decisions. Feature scope stays intentionally flexible until the initial requirements are reviewed.
+SLAM is a retro-inspired mobile soundboard that gives users a memorable sign-off sound after a call. The core soundboard is cross-platform; automatic call-end integration is a separate, platform-specific research track.
 
-## Phase 0 — Foundation
+## Phase 0 — Foundation and concept prototype
 
 - [x] Establish the public repository and project identity
 - [x] Select Dart and Flutter for Android/iOS
-- [x] Define initial architecture and dependency principles
-- [x] Add the runnable Flutter application scaffold
-- [x] Add baseline formatting, analysis, and widget tests
-- [x] Add GitHub Actions CI for Flutter checks
+- [x] Add the Flutter application shell and CI
+- [x] Define the retro call sign-off product concept
+- [x] Build a dark soundboard interface with five selectable effects
+- [x] Generate original prototype WAV effects locally in Dart
+- [x] Add in-app playback and preview controls
+- [x] Document iOS and Android call-end constraints
+- [ ] Verify playback on physical Android and iOS devices
 
-## Phase 1 — Product discovery
+## Phase 1 — Product validation
 
-- [ ] Review the original notes and intended use case
-- [ ] Identify primary users and the core problem
-- [ ] Define the smallest useful first release
-- [ ] Map the main user journey and key screens
-- [ ] Agree on privacy, accessibility, and offline requirements
-- [ ] Record product decisions in the brief
+- [ ] Review stakeholder notes and confirm the desired sound styles
+- [ ] Decide whether the app should feel playful, nostalgic, customizable, or all three
+- [ ] Validate the five prototype sounds and identify the signature effect
+- [ ] Define the default sound, volume, mute, and accessibility behavior
+- [ ] Confirm whether users expect manual post-call playback or automatic triggering
+- [ ] Agree on privacy language and permission rationale
 
-## Phase 2 — First usable release
+## Phase 2 — Soundboard MVP
 
-- [ ] Implement the approved core user journey
-- [ ] Add state management and navigation only where justified
-- [ ] Add persistence or backend only if required
-- [ ] Add error, loading, and empty states
-- [ ] Add unit and widget coverage for critical behavior
-- [ ] Validate on Android and iOS
+- [ ] Extract the audio engine into a testable service
+- [ ] Add persistent selected-sound and volume preferences
+- [ ] Add custom sound import, with format and duration validation
+- [ ] Add favorites and a compact quick-play interaction
+- [ ] Test audio focus, interruptions, Bluetooth, speaker, and silent mode
+- [ ] Add audio-generation unit tests and broader widget tests
 
-## Phase 3 — Quality and release
+## Phase 3 — Call-end integration research
 
-- [ ] Accessibility and responsive-layout review
-- [ ] Security and data-handling review
-- [ ] Integration and device testing
-- [ ] App icon, launch experience, and store assets
-- [ ] Release notes and distribution plan
-- [ ] Prepare Play Store / App Store submission when approved
+- [ ] Build a small Android Kotlin proof of concept for call-state observation
+- [ ] Test READ_PHONE_STATE consent and lifecycle behavior on real devices
+- [ ] Validate playback after cellular calls across Android versions and OEMs
+- [ ] Document iOS ordinary-call limitations and user-triggered fallback
+- [ ] Decide whether automatic Android support is reliable and worth maintaining
+- [ ] Keep unsupported automatic behavior clearly disabled on iOS
 
-## Working rule
+## Phase 4 — Release readiness
 
-No speculative feature work, external services, paid infrastructure, or store submission before the product brief and user approval establish the need.
+- [ ] Accessibility, privacy, and security review
+- [ ] Test on representative Android and iOS devices
+- [ ] Add app icon, launch experience, and store screenshots
+- [ ] Prepare release notes and platform-specific feature descriptions
+- [ ] Submit to stores only after explicit approval
+
+## Working rules
+
+- No call recording, contact scraping, or audio injection into active calls.
+- Do not request phone-state permissions before the Android proof of concept.
+- Do not promise automatic call-end playback on iOS for ordinary cellular calls.
+- Keep the basic soundboard useful offline and independently of call integration.
