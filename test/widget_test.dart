@@ -9,7 +9,7 @@ void main() {
 
     expect(find.text('SLAM'), findsOneWidget);
     expect(find.text('MAKE YOUR\nEXIT MEMORABLE.'), findsOneWidget);
-    expect(find.text('The Handset Slam'), findsOneWidget);
+    expect(find.text('The Handset Slam'), findsNWidgets(2));
     expect(find.text('TEST THIS SOUND'), findsOneWidget);
     expect(find.text('PICK YOUR SIGN-OFF'), findsOneWidget);
   });
@@ -17,11 +17,11 @@ void main() {
   testWidgets('lets the user select another sign-off', (tester) async {
     await tester.pumpWidget(const SlamApp());
 
-    await tester.ensureVisible(find.text('Hard Disconnect'));
+    await tester.ensureVisible(find.text('Hard Disconnect').last);
     await tester.tap(find.text('Hard Disconnect'));
     await tester.pump();
 
-    expect(find.text('Hard Disconnect'), findsOneWidget);
+    expect(find.text('Hard Disconnect'), findsNWidgets(2));
     expect(find.text('TEST THIS SOUND'), findsOneWidget);
   });
 
