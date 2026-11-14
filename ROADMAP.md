@@ -77,10 +77,13 @@ SLAM is a retro phone sign-off entertainment concept. The existing implementatio
 
 ## Current quality gate
 
-- [ ] Resolve the Dart parse/format failure from the latest CI run
-- [ ] Run Flutter analyze successfully
-- [ ] Run Flutter test successfully
+- [x] Resolve the earlier malformed Dart string interpolation
+- [x] Correct the missing TextField import in the widget test
+- [x] Make the Pro preview flag immutable
+- [ ] Confirm the newest GitHub Actions run passes format, analyze, and tests
 - [ ] Verify audio playback manually on physical devices
+
+See [docs/REPOSITORY_ASSESSMENT.md](docs/REPOSITORY_ASSESSMENT.md) for the current findings and release-readiness recommendation.
 
 ## Working rules
 
