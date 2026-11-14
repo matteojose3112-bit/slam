@@ -5,17 +5,21 @@ All notable project changes are recorded here.
 ## [Unreleased]
 
 ### Added
-- Established SLAM as a dedicated Dart and Flutter cross-platform mobile project.
-- Added a dark retro-inspired call sign-off soundboard with five selectable effects.
-- Added locally synthesized WAV previews for a handset slam, mechanical disconnect, busy signal, record stop, and cinematic impact.
-- Added local audio playback with audioplayers and temporary-file handling with path_provider.
-- Added widget tests for the soundboard, selection behavior, and call-integration notice.\n- Extracted WAV synthesis into a dedicated `SoundWaveGenerator` service.\n- Added unit tests for WAV headers, PCM format metadata, and all five preset durations.
-- Documented the product brief and Android/iOS call-end integration constraints.
+- Translated the stakeholder's PHONE SLAM concept into the Flutter application.
+- Added four phone styles: classic rotary, payphone, 90s office phone, and cordless.
+- Added home, dialer, and simulated active-call screens.
+- Added the large red SLAM action and supplied recording offsets/durations.
+- Added a low-volume free-tier default and a Pro high-volume gate concept.
+- Added widget tests for sound choices, screen navigation, and the Pro gate.
 
 ### Changed
-- Replaced the generic foundation screen with the first SLAM product prototype.
-- Reworked the roadmap around soundboard MVP, device validation, and platform-specific call integration.\n- Corrected the selection widget test to account for the selected card scrolling off-screen.\n- Aligned mechanical-click and record-stop generated durations with their displayed preset durations.
+- Replaced the first synthetic soundboard UI with the stakeholder's three-screen experience.
+- Replaced generated WAV playback with remote recorded-audio playback through audioplayers.
+- Removed the superseded Dart sound generator, its tests, and the unused path_provider dependency.
+- Added explicit copy that the call flow is a simulation and does not place calls.
+- Kept the Pro gate honest: real in-app purchases and entitlements are not connected.
 
 ### Technical notes
+- Audio URLs were reconstructed from pasted source code and require confirmation; filenames were line-break corrupted.
+- Remote audio currently requires network access; local asset bundling/caching remains future work.
 - Automatic ordinary cellular call-end playback is not implemented.
-- iOS CallKit is intended for calls managed by the app; Android call-state observation requires a separate native feasibility and permission review.
