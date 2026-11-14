@@ -17,7 +17,7 @@ void main() {
   testWidgets('lets the user select another sign-off', (tester) async {
     await tester.pumpWidget(const SlamApp());
 
-    await tester.ensureVisible(find.text('Hard Disconnect').last);
+    await tester.scrollUntilVisible(find.text('Hard Disconnect'), 300);
     await tester.tap(find.text('Hard Disconnect'));
     await tester.pump();
 
@@ -30,7 +30,7 @@ void main() {
   ) async {
     await tester.pumpWidget(const SlamApp());
 
-    await tester.ensureVisible(find.text('THE NEXT LEVEL'));
+    await tester.scrollUntilVisible(find.text('THE NEXT LEVEL'), 300);
     expect(find.text('THE NEXT LEVEL'), findsOneWidget);
     expect(
       find.textContaining('Automatic call-end playback is being explored.'),
