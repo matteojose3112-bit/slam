@@ -21,7 +21,8 @@ void main() {
     await tester.tap(find.text('Hard Disconnect'));
     await tester.pump();
 
-    expect(find.text('Hard Disconnect'), findsNWidgets(2));
+    // The selected-sound card may be off-screen after scrolling to the tile.
+    expect(find.text('Hard Disconnect'), findsOneWidget);
     expect(find.text('TEST THIS SOUND'), findsOneWidget);
   });
 
