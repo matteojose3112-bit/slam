@@ -25,12 +25,12 @@ SLAM is a retro-inspired mobile soundboard that gives users a memorable sign-off
 
 ## Phase 2 — Soundboard MVP
 
-- [ ] Extract the audio engine into a testable service
+- [x] Extract the WAV generator into a testable audio service
 - [ ] Add persistent selected-sound and volume preferences
 - [ ] Add custom sound import, with format and duration validation
 - [ ] Add favorites and a compact quick-play interaction
 - [ ] Test audio focus, interruptions, Bluetooth, speaker, and silent mode
-- [ ] Add audio-generation unit tests and broader widget tests
+- [x] Add WAV header and preset-duration unit tests\n- [ ] Expand widget coverage for playback errors, interruptions, and preferences
 
 ## Phase 3 — Call-end integration research
 
