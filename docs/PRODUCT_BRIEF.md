@@ -6,71 +6,66 @@
 
 ## Product idea
 
-SLAM is a playful mobile sound-effects companion that makes the end of a phone call feel memorable. The signature experience is the satisfying clunk of an old 1980s telephone handset being slammed down—plus other customizable sign-offs.
+SLAM makes ending a phone call feel theatrical. The concept centers on four recognizable telephone styles and a large red sign-off action that plays the corresponding handset recording.
 
-**Core promise:** Choose the sound you want associated with ending a call, preview it, and make your exit memorable.
+**Core promise:** Choose your phone style, set your preferred volume, and end the simulated call with a satisfying slam.
 
-The first prototype includes five original, locally synthesized sound effects. It is a soundboard demonstration, not yet an automatic phone-call integration.
+## Experience
 
-## The signature sound collection
+1. Open the home screen and choose one of four phone styles.
+2. Preview a sound and choose low or Pro-gated high volume.
+3. Open the in-app dialer and enter a display name.
+4. Start a clearly labelled simulated call.
+5. Press the large red SLAM button to play the selected sound.
 
-- **The Handset Slam** — a chunky retro receiver drop
-- **Hard Disconnect** — a crisp mechanical click
-- **The Busy Signal** — a classic two-tone telephone signal
-- **Record Stop** — a dramatic descending pitch
-- **The Mic Drop** — a deep cinematic impact
+The current prototype implements this simulated journey. It does not place a real phone call or automatically detect call endings.
 
-The first sound designs are synthesized in-app for prototyping. A later production library can use carefully designed, licensed, original recordings.
+## Sound collection
 
-## Intended user journey
+- **Classic rotary:** Recorded pick-up / hang-up effect, starting at 3 seconds.
+- **Payphone:** Dedicated payphone handset slam recording.
+- **90s office phone:** Shared recording, 22-second offset, 2.5-second segment.
+- **Cordless phone:** Shared recording, 7-second offset, 2-second segment.
 
-1. Open SLAM.
-2. Browse the sign-off sounds.
-3. Preview a sound and choose a favorite/default.
-4. End a call.
-5. Trigger the chosen sound using a platform-supported action.
+The asset URLs were reconstructed from the code pasted into the conversation. The filenames were split and partially corrupted by formatting, so all three URLs must be checked against the original source. Audio ownership and commercial-use rights must be confirmed before release.
 
-Step 5 is the main technical risk. The current build supports in-app preview and manual playback. Automatic detection of ordinary cellular call endings has not been implemented and must not be advertised as available.
+## Volume and monetization concept
 
-## Platform feasibility
+- Low volume is the default.
+- High volume is presented as a Pro feature.
+- The current Pro gate is a UI prototype only.
+- No payment, subscription, restore purchase, or entitlement system exists.
+- The example $2.99 price in the source code is not an approved or active price.
 
-- **Android:** Native telephony APIs expose call-state changes with appropriate permission, but background execution, device behavior, Android version differences, and app-store policy need a dedicated proof of concept.
-- **iOS:** CallKit is designed to integrate calls managed by the app, especially its own VoIP calling service. It is not a general-purpose hook for detecting the end of calls made in Apple's Phone app. The iOS experience therefore needs a user-triggered fallback unless platform capabilities change.
+## Real call integration
 
-SLAM will play its effects locally on the user's device. It will not inject sounds into an active phone conversation or record call audio.
+The call screen is currently a simulation. Real call initiation and automatic call-end detection are separate product and platform decisions.
 
-See [Call-end integration research](CALL_INTEGRATION.md).
+- **Android:** Native call-state APIs need a Kotlin proof of concept, explicit permission review, background lifecycle tests, and device testing.
+- **iOS:** CallKit is designed for calls managed by the app, especially its own VoIP service. It is not a general-purpose observer for calls made in the system Phone app. A user-triggered sign-off remains the baseline.
+
+SLAM must play sound locally for the user, never inject audio into the other participant's call audio, and never record calls.
 
 ## Prototype scope
 
-### Implemented
-- Five selectable sign-off sounds
-- In-app preview and playback
-- Original synthesized WAV sound effects generated locally
-- Dark retro-inspired interface with a high-contrast lime accent
-- Clear notice that automatic call-end playback is still under exploration
+### Implemented in the current branch
+- Four phone-style choices
+- Home / dialer / simulated active-call navigation
+- Selected recording playback with clip offsets
+- Low-volume default and a clearly disclosed Pro gate
+- Widget tests for primary navigation and the free-tier gate
 
 ### Next
-- Confirm the product direction and sound preferences with the original stakeholder
-- Add a persistent default sound and volume control
-- Test audio focus, interruptions, Bluetooth, speaker, and silent-mode behavior
-- Build an Android call-state feasibility spike
-- Define the best iOS manual trigger experience
+- Verify audio URLs and recording segments
+- Confirm sound asset licensing
+- Improve network failure/loading behavior
+- Decide whether to bundle audio locally
+- Validate the monetization concept before implementing billing
 
 ## Product guardrails
 
-- Do not promise automatic call-end playback until proven on real devices.
-- Do not collect contacts, call logs, phone numbers, or call audio for the soundboard.
+- Do not describe the simulated call as a real phone call.
+- Do not claim purchases or Pro entitlements without store verification.
+- Do not collect contacts, call logs, phone numbers, or call audio.
 - Do not play a sound into the other person's call audio.
-- Keep playback user-controlled, with a clear way to disable it.
-- Respect platform audio focus, user volume, and accessibility needs.
-
-## First-release definition
-
-- **Primary user:** People who enjoy personalizing small everyday interactions.
-- **Problem:** Phone calls end abruptly and without personality.
-- **Core promise:** Give the end of a call a signature sound.
-- **Must-have:** Sound library, preview, selected default, reliable local playback, user-triggered sign-off.
-- **Stretch goal:** Automatic post-call trigger on platforms where it is permitted and dependable.
-- **Out of scope:** Call recording, call interception, sound injection into live calls, contact management, call analytics.
-- **Success measure:** A user can choose a sound and play it reliably in a few taps without disrupting normal phone use.
+- Keep playback user-controlled and volume conservative by default.
