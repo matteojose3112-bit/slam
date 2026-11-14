@@ -110,7 +110,7 @@ class _SlamHomeState extends State<SlamHome> {
   final TextEditingController _nameController =
       TextEditingController(text: 'Boss');
   bool _isHighVolume = false;
-  bool _isPro = false;
+  final bool _isPro = false;
   bool _isPlaying = false;
   String? _audioError;
 
