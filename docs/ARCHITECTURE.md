@@ -2,65 +2,72 @@
 
 ## Guiding approach
 
-Build the shared soundboard in Flutter and keep platform-specific call integration isolated. Do not add native telephony permissions or background services until a platform proof of concept establishes feasibility and user value.
+Use Flutter for the shared Android/iOS UI. Keep the sound catalog and playback behavior simple until the supplied recordings and product flow are validated. Platform-specific call integration remains isolated and out of scope for the current prototype.
 
-## Initial stack
+## Current stack
 
-| Concern | Choice | Adoption rule |
+| Concern | Choice | Notes |
 |---|---|---|
 | Language | Dart | Project default |
 | UI framework | Flutter / Material 3 | Shared Android/iOS UI |
-| Audio playback | audioplayers | Local short sound effects |
-| Temporary audio files | path_provider | Store generated WAV previews in app temp storage |
-| Sound generation | `SoundWaveGenerator` (Dart) | Pure local PCM/WAV synthesis, independently unit-tested |
-| State | Local widget state initially | Add Riverpod when preferences or state become shared |
-| Routing | No router yet | Add GoRouter when multiple screens/routes are needed |
-| Backend | None | Sound library and preferences should work offline |
-| Tests | flutter_test | Widget coverage plus pure Dart sound-generation tests |
+| Audio playback | audioplayers | Plays supplied remote WAV recordings |
+| Audio catalog | SlamSound constants in main.dart | Sound IDs, URL keys, offsets, and clip lengths |
+| State | Local widget state | Current three-screen prototype |
+| Routing | AnimatedSwitcher screen state | Home, dialer, simulated call |
+| Backend | None | No account or server |
+| Tests | flutter_test | UI flow and free-tier gate |
 | CI | GitHub Actions | Format, analyze, test |
 
-## Current runtime flow
+## Audio playback flow
 
-1. User selects one of the built-in sound presets.
-2. `SoundWaveGenerator` synthesizes a short mono PCM WAV.
-3. The WAV is written to the app's temporary directory.
-4. audioplayers plays the local file on the device.
-5. The temporary file may be regenerated when the user previews that preset.
+1. User selects one of the four phone styles.
+2. The selected sound resolves to a remote recording URL.
+3. audioplayers loads the URL and starts at the configured offset.
+4. Office and cordless sounds stop after their configured clip duration.
+5. The player reports completion or an error to the UI.
 
-This avoids remote audio dependencies and keeps prototype sound playback offline. The generator is isolated from Flutter UI code so WAV structure and preset durations can be tested without an audio device.
+The supplied recording URLs were reconstructed from pasted source code and must be verified. Remote playback currently requires connectivity. A future release should bundle properly licensed recordings or implement a resilient download cache.
+
+## Screen flow
+
+- **Home:** phone style selection, preview, volume tier, and dialer entry.
+- **Dialer:** display-name input and simulated-call start.
+- **Call:** simulated active-call state and large red SLAM action.
+
+The UI explicitly states that no real phone call is placed.
+
+## Monetization boundary
+
+The current free/Pro treatment is a visual concept only. The high-volume gate explains that purchases are not connected. Do not add fake purchase success or local-only Pro entitlement state. Real store billing requires a separately approved design and store integration.
 
 ## Platform integration boundary
 
-Any future automatic call-end behavior must sit behind a platform interface:
+Future call-end behavior must be implemented behind a platform capability boundary:
 
-- CallEndTrigger exposes supported capability and lifecycle events.
-- Android implementation: native Kotlin proof of concept using supported telephony APIs and explicit permission.
-- iOS implementation: manual user-triggered flow for ordinary cellular calls; CallKit only if SLAM later owns a VoIP calling experience.
+- Android: native Kotlin feasibility work with explicit permission and device validation.
+- iOS: user-triggered sign-off for ordinary system Phone calls; CallKit only if SLAM later owns a VoIP calling experience.
 
-The shared Flutter UI must never assume automatic call-end detection is available on every platform.
+The shared Flutter UI must not assume automatic call-end detection is available on every platform.
 
 ## Architecture decisions
 
 ### ADR-001 — Flutter and Dart
 **Accepted.** Use Flutter with Dart for a shared Android/iOS application.
 
-### ADR-002 — Feature-first structure
-**Accepted as direction.** Organize code around product capabilities. Extract modules as the product grows.
+### ADR-002 — Simulated call flow first
+**Accepted.** Validate the product interaction without implying that the app places or observes real calls.
 
-### ADR-003 — Offline-first soundboard
-**Accepted.** The sound library and playback should work without accounts, remote services, or network access.
+### ADR-003 — Recorded source sounds
+**Accepted provisionally.** Use the four sound styles and remote audio approach supplied by the stakeholder. Confirm URLs, source ownership, and licensing before release.
 
-### ADR-004 — No automatic call detection in the initial prototype
-**Accepted.** Android and iOS have different telephony capabilities. Validate each platform separately before requesting sensitive permissions or promising automatic behavior.
-
-### ADR-005 — Original prototype sounds
-**Accepted.** Generate initial sound effects in Dart for rapid iteration. Replace or supplement these with original/licensed production audio after sound direction is approved.
+### ADR-004 — Conservative volume and honest Pro gate
+**Accepted provisionally.** Low volume is the default. High volume is a monetization concept only until store billing is implemented.
 
 ## Quality gates
 
 - dart format produces no changes.
 - flutter analyze has no unresolved issues.
 - flutter test passes.
-- Sound playback is user-triggered and handles interruptions/errors.
-- Sensitive call data is not collected.
-- Android and iOS platform behavior is tested separately before release.
+- Remote audio errors are visible and recoverable.
+- Audio assets are licensed before distribution.
+- Android and iOS call behavior is tested separately before release.
