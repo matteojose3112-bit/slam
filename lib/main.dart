@@ -132,7 +132,7 @@ class _SoundboardScreenState extends State<SoundboardScreen> {
 
     try {
       final directory = await getTemporaryDirectory();
-      final file = File('${directory.path}/slam_${_selectedId}.wav');
+      final file = File('${directory.path}/slam_$_selectedId.wav');
       await file.writeAsBytes(_renderWave(_selectedId), flush: true);
       await player.stop();
       await player.play(DeviceFileSource(file.path));
