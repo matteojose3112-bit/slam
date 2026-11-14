@@ -2,76 +2,65 @@
 
 ## Guiding approach
 
-Start with a small, understandable Flutter application and evolve toward feature-first modularity as product requirements become clear. Avoid introducing abstractions or packages without a concrete need.
+Build the shared soundboard in Flutter and keep platform-specific call integration isolated. Do not add native telephony permissions or background services until a platform proof of concept establishes feasibility and user value.
 
 ## Initial stack
 
 | Concern | Choice | Adoption rule |
 |---|---|---|
 | Language | Dart | Project default |
-| UI framework | Flutter / Material 3 | Project default; customize visual identity after product discovery |
-| State | Riverpod | Add when real shared or asynchronous state appears |
-| Routing | GoRouter | Add when the app needs multiple named routes or deep links |
-| Backend | Undecided | Select only after data, auth, sync, and hosting needs are known |
-| Tests | flutter_test | Widget tests from the beginning; add unit/integration coverage with features |
-| CI | GitHub Actions | Run format, analyze, and test checks |
+| UI framework | Flutter / Material 3 | Shared Android/iOS UI |
+| Audio playback | audioplayers | Local short sound effects |
+| Temporary audio files | path_provider | Store generated WAV previews in app temp storage |
+| Sound generation | Dart PCM/WAV synthesis | Prototype-only original tones and effects |
+| State | Local widget state initially | Add Riverpod when preferences or state become shared |
+| Routing | No router yet | Add GoRouter when multiple screens/routes are needed |
+| Backend | None | Sound library and preferences should work offline |
+| Tests | flutter_test | Widget coverage plus pure Dart sound-generation tests |
+| CI | GitHub Actions | Format, analyze, test |
 
-## Proposed source layout
+## Current runtime flow
 
-```
-lib/
-  app/
-    app.dart
-    router/
-  core/
-    theme/
-    errors/
-    utils/
-  features/
-    <feature_name>/
-      data/
-      domain/
-      presentation/
-  main.dart
-test/
-  features/
-```
+1. User selects one of the built-in sound presets.
+2. SLAM synthesizes a short mono PCM WAV in Dart.
+3. The WAV is written to the app's temporary directory.
+4. audioplayers plays the local file on the device.
+5. The temporary file may be regenerated when the user previews that preset.
 
-This is a target layout, not a requirement to create empty folders now. Each feature should own its presentation and data behavior; shared code belongs in core only when reuse is real.
+This avoids remote audio dependencies and keeps prototype sound playback offline.
+
+## Platform integration boundary
+
+Any future automatic call-end behavior must sit behind a platform interface:
+
+- CallEndTrigger exposes supported capability and lifecycle events.
+- Android implementation: native Kotlin proof of concept using supported telephony APIs and explicit permission.
+- iOS implementation: manual user-triggered flow for ordinary cellular calls; CallKit only if SLAM later owns a VoIP calling experience.
+
+The shared Flutter UI must never assume automatic call-end detection is available on every platform.
 
 ## Architecture decisions
 
 ### ADR-001 — Flutter and Dart
-
-**Status:** Accepted
-
-Use Flutter with Dart to target Android and iOS from a shared application codebase. This avoids maintaining two independent native implementations for the first release.
+**Accepted.** Use Flutter with Dart for a shared Android/iOS application.
 
 ### ADR-002 — Feature-first structure
+**Accepted as direction.** Organize code around product capabilities. Extract modules as the product grows.
 
-**Status:** Accepted as direction
+### ADR-003 — Offline-first soundboard
+**Accepted.** The sound library and playback should work without accounts, remote services, or network access.
 
-Organize code around product capabilities rather than technical layers alone. Introduce feature folders when the first real feature is known.
+### ADR-004 — No automatic call detection in the initial prototype
+**Accepted.** Android and iOS have different telephony capabilities. Validate each platform separately before requesting sensitive permissions or promising automatic behavior.
 
-### ADR-003 — Delay backend selection
-
-**Status:** Accepted
-
-Do not assume Supabase or another backend before understanding whether the app needs accounts, remote storage, synchronization, or server-side logic.
-
-### ADR-004 — Add dependencies just in time
-
-**Status:** Accepted
-
-Riverpod and GoRouter are preferred candidates, but they should enter the dependency graph when the application has a concrete need for them.
+### ADR-005 — Original prototype sounds
+**Accepted.** Generate initial sound effects in Dart for rapid iteration. Replace or supplement these with original/licensed production audio after sound direction is approved.
 
 ## Quality gates
 
-Before a change is considered ready:
-
-- `dart format` produces no changes.
-- `flutter analyze` has no unresolved issues.
-- `flutter test` passes.
-- User-facing states include appropriate loading, empty, and error handling.
-- Sensitive data is minimized and never committed to source control.
-- Platform-specific behavior is checked on both Android and iOS when applicable.
+- dart format produces no changes.
+- flutter analyze has no unresolved issues.
+- flutter test passes.
+- Sound playback is user-triggered and handles interruptions/errors.
+- Sensitive call data is not collected.
+- Android and iOS platform behavior is tested separately before release.
