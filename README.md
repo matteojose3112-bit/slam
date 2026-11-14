@@ -1,37 +1,41 @@
 # SLAM
 
-**Make your exit memorable.**
+**Choose your weapon. End the call right.**
 
-SLAM is a retro-inspired mobile soundboard built with **Dart + Flutter** for Android and iOS. Choose a sign-off sound inspired by the satisfying clunk of an old 1980s telephone handset being slammed down.
+SLAM is a retro-inspired Flutter mobile app prototype built around the theatrical sound of hanging up an old telephone.
 
-## The prototype
+## Current prototype
 
-- Five selectable sound effects
-- In-app preview and local playback
-- Original prototype WAV sounds synthesized by a dedicated Dart audio service
-- Dark retro-inspired interface with a bright lime accent
-- Offline-first: no account or backend required
+- Four phone styles: classic rotary, payphone, 90s office phone, and cordless
+- Three-screen flow: home soundboard → dialer → simulated active call
+- Large red SLAM action to play the selected recording
+- Low volume is the free-tier default; high volume is a Pro feature concept
+- Remote audio playback with selected clip offsets
+- Clear disclosure that the dialer is a simulation and does not place calls
 
 ## Sound collection
 
-| Sound | Character |
+| Phone style | Recording |
 |---|---|
-| The Handset Slam | Chunky retro receiver drop |
-| Hard Disconnect | Crisp mechanical click |
-| The Busy Signal | Classic two-tone telephone signal |
-| Record Stop | Dramatic descending pitch |
-| The Mic Drop | Deep cinematic impact |
+| Classic rotary | Rotary pick-up / hang-up recording, starting at 3 seconds |
+| Payphone | Payphone handset slam recording |
+| 90s office phone | Shared recording, 22-second offset, 2.5-second clip |
+| Cordless phone | Shared recording, 7-second offset, 2-second clip |
+
+The URLs were reconstructed from the stakeholder's pasted code, whose filenames were partially corrupted by line breaks. They need confirmation against the original source. Recordings are remote and playback currently requires network access.
 
 ## Important platform note
 
-The current build is a working soundboard prototype. It does **not** automatically detect ordinary phone-call endings yet.
+The current flow is a **simulation**. It does not place or control real phone calls and does not automatically detect ordinary cellular call endings.
 
-- **Android:** Call-state APIs exist, but a native Kotlin proof of concept must validate permissions, background behavior, and post-call playback.
-- **iOS:** CallKit is designed for calls managed by the app, not as a general-purpose observer for calls made through the system Phone app. A manual playback path is the baseline for ordinary calls.
+- **Android:** Call-state APIs require a separate native Kotlin proof of concept and permission review.
+- **iOS:** CallKit is not a general-purpose observer for ordinary calls made through Apple's Phone app. A user-triggered flow remains the baseline.
 
-SLAM plays sounds locally after the call. It does not record calls or inject sounds into live conversations.
+SLAM must play locally on the user's device, never inject sound into the other person's call audio, and never record calls.
 
-See [Call-end integration research](docs/CALL_INTEGRATION.md) for the technical assessment.
+## Monetization prototype
+
+The free-tier / Pro distinction is UI-only. High volume displays an explanatory gate, but no real purchase, subscription, restore-purchase, or entitlement implementation exists. The example $2.99 price from the source code is not an active offer.
 
 ## Technology
 
@@ -40,36 +44,24 @@ See [Call-end integration research](docs/CALL_INTEGRATION.md) for the technical 
 | Language / framework | Dart + Flutter |
 | UI | Material 3 |
 | Audio playback | audioplayers |
-| Temporary storage | path_provider |
-| Prototype sound generation | Dart PCM/WAV synthesis |
-| Architecture | Feature-first, platform integrations isolated |
-| Backend | None; offline-first |
-| Tests | Flutter widget and unit tests |
+| Audio source | Remote WAV recordings supplied in the stakeholder prototype |
+| State | Local widget state |
+| Backend | None |
+| Tests | Flutter widget tests |
 | CI | GitHub Actions |
 
 ## Getting started
-
-Requires the Flutter SDK and a configured Android or iOS development environment.
 
     flutter pub get
     flutter analyze
     flutter test
     flutter run
 
-Generate platform runner folders with:
-
-    flutter create . --platforms=android,ios
-
 ## Repository structure
 
     .
-    ├── lib/
-    │   ├── audio/
-    │   │   └── sound_wave_generator.dart
-    │   └── main.dart
-    ├── test/
-    │   ├── sound_wave_generator_test.dart
-    │   └── widget_test.dart
+    ├── lib/main.dart
+    ├── test/widget_test.dart
     ├── docs/
     │   ├── PRODUCT_BRIEF.md
     │   ├── ARCHITECTURE.md
@@ -81,16 +73,8 @@ Generate platform runner folders with:
 
 ## Project principles
 
-1. Keep the soundboard useful offline.
-2. Make playback user-controlled and easy to disable.
-3. Avoid collecting call data or contacts.
-4. Never claim automatic call-end behavior until verified on real devices.
+1. Use the stakeholder's intended recorded sounds rather than the retired synthetic prototype.
+2. Keep playback user-controlled and volume conservative by default.
+3. Be explicit about simulated calls and platform limitations.
+4. Do not claim purchases or automatic call-end behavior before implementation and verification.
 5. Keep the README, roadmap, and changelog current.
-
-## Project documents
-
-- [Product brief](docs/PRODUCT_BRIEF.md)
-- [Architecture decisions](docs/ARCHITECTURE.md)
-- [Call-end integration research](docs/CALL_INTEGRATION.md)
-- [Roadmap](ROADMAP.md)
-- [Changelog](CHANGELOG.md)
