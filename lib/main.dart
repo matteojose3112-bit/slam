@@ -112,7 +112,6 @@ class _SlamHomeState extends State<SlamHome> {
   bool _isHighVolume = false;
   bool _isPro = false;
   bool _isPlaying = false;
-  bool _showPaywall = false;
   String? _audioError;
 
   SlamSound get _selectedSound =>
@@ -170,7 +169,7 @@ class _SlamHomeState extends State<SlamHome> {
 
   void _toggleVolume() {
     if (!_isHighVolume && !_isPro) {
-      setState(() => _showPaywall = true);
+      showDialog<void>(context: context, builder: (dialogContext) => AlertDialog(title: const Text('UNLOCK HIGH VOLUME'), content: const Text('High-volume mode is reserved for SLAM PRO. In-app purchases are not connected in this prototype yet.'), actions: [TextButton(onPressed: () => Navigator.of(dialogContext).pop(), child: const Text('GOT IT'))]));
       return;
     }
     setState(() => _isHighVolume = !_isHighVolume);
@@ -186,7 +185,8 @@ class _SlamHomeState extends State<SlamHome> {
   Future<void> _handleSlamButton() async {
     await _playSlam();
     if (!mounted) return;
-    setState(() => _screen = SlamScreen.home);
+    await Future<void>.delayed(const Duration(milliseconds: 1200));
+    if (mounted) setState(() => _screen = SlamScreen.home);
   }
 
   @override
@@ -452,7 +452,7 @@ class _SlamHomeState extends State<SlamHome> {
                 borderSide: BorderSide.none,
               ),
             ),
-            onChanged: (value) => _contactName = value,
+            onChanged: (value) => setState(() => _contactName = value),
           ),
           const Spacer(),
           const Icon(
