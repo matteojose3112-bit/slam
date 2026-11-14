@@ -64,8 +64,11 @@ Generate platform runner folders with:
 
     .
     ├── lib/
+    │   ├── audio/
+    │   │   └── sound_wave_generator.dart
     │   └── main.dart
     ├── test/
+    │   ├── sound_wave_generator_test.dart
     │   └── widget_test.dart
     ├── docs/
     │   ├── PRODUCT_BRIEF.md
