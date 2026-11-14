@@ -12,7 +12,7 @@ Build the shared soundboard in Flutter and keep platform-specific call integrati
 | UI framework | Flutter / Material 3 | Shared Android/iOS UI |
 | Audio playback | audioplayers | Local short sound effects |
 | Temporary audio files | path_provider | Store generated WAV previews in app temp storage |
-| Sound generation | Dart PCM/WAV synthesis | Prototype-only original tones and effects |
+| Sound generation | `SoundWaveGenerator` (Dart) | Pure local PCM/WAV synthesis, independently unit-tested |
 | State | Local widget state initially | Add Riverpod when preferences or state become shared |
 | Routing | No router yet | Add GoRouter when multiple screens/routes are needed |
 | Backend | None | Sound library and preferences should work offline |
@@ -22,12 +22,12 @@ Build the shared soundboard in Flutter and keep platform-specific call integrati
 ## Current runtime flow
 
 1. User selects one of the built-in sound presets.
-2. SLAM synthesizes a short mono PCM WAV in Dart.
+2. `SoundWaveGenerator` synthesizes a short mono PCM WAV.
 3. The WAV is written to the app's temporary directory.
 4. audioplayers plays the local file on the device.
 5. The temporary file may be regenerated when the user previews that preset.
 
-This avoids remote audio dependencies and keeps prototype sound playback offline.
+This avoids remote audio dependencies and keeps prototype sound playback offline. The generator is isolated from Flutter UI code so WAV structure and preset durations can be tested without an audio device.
 
 ## Platform integration boundary
 
