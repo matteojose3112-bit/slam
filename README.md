@@ -1,85 +1,93 @@
 # SLAM
 
-**A cross-platform mobile app project built with Dart and Flutter.**
+**Make your exit memorable.**
 
-SLAM is the seventh project in this portfolio and the dedicated home for mobile application development. The goal is to build a thoughtful, polished product for **Android and iOS** from one shared Flutter codebase.
+SLAM is a retro-inspired mobile soundboard built with **Dart + Flutter** for Android and iOS. Choose a sign-off sound inspired by the satisfying clunk of an old 1980s telephone handset being slammed down.
 
-> **Product direction is intentionally open.** The first app will be shaped by real requirements and notes before we lock in features, data models, or backend decisions.
+## The prototype
 
-## Current status
+- Five selectable sound effects
+- In-app preview and local playback
+- Original prototype WAV sounds synthesized in Dart
+- Dark retro-inspired interface with a bright lime accent
+- Offline-first: no account or backend required
 
-- [x] Public repository established
-- [x] Initial product and technical direction documented
-- [x] Flutter starter app and first widget test added
-- [ ] Confirm the product brief and primary user problem
-- [ ] Generate the complete Flutter platform scaffold and run tests
-- [ ] Build the first user-approved feature
+## Sound collection
+
+| Sound | Character |
+|---|---|
+| The Handset Slam | Chunky retro receiver drop |
+| Hard Disconnect | Crisp mechanical click |
+| The Busy Signal | Classic two-tone telephone signal |
+| Record Stop | Dramatic descending pitch |
+| The Mic Drop | Deep cinematic impact |
+
+## Important platform note
+
+The current build is a working soundboard prototype. It does **not** automatically detect ordinary phone-call endings yet.
+
+- **Android:** Call-state APIs exist, but a native Kotlin proof of concept must validate permissions, background behavior, and post-call playback.
+- **iOS:** CallKit is designed for calls managed by the app, not as a general-purpose observer for calls made through the system Phone app. A manual playback path is the baseline for ordinary calls.
+
+SLAM plays sounds locally after the call. It does not record calls or inject sounds into live conversations.
+
+See [Call-end integration research](docs/CALL_INTEGRATION.md) for the technical assessment.
 
 ## Technology
 
-| Area | Initial choice |
+| Area | Choice |
 |---|---|
-| Language | Dart |
-| Mobile framework | Flutter |
-| UI | Material 3 via `material_ui`, responsive layouts |
-| Architecture | Feature-first, modular |
-| State management | Riverpod (introduce with first meaningful stateful feature) |
-| Navigation | GoRouter (introduce when multiple routes are needed) |
-| Backend | Undecided; evaluate Supabase only if the product needs it |
-| Testing | Flutter widget and integration tests |
+| Language / framework | Dart + Flutter |
+| UI | Material 3 |
+| Audio playback | audioplayers |
+| Temporary storage | path_provider |
+| Prototype sound generation | Dart PCM/WAV synthesis |
+| Architecture | Feature-first, platform integrations isolated |
+| Backend | None; offline-first |
+| Tests | Flutter widget and unit tests |
 | CI | GitHub Actions |
-
-Dependencies will be added when needed rather than front-loading the project with packages.
-
-## Repository structure
-
-```
-.
-├── lib/
-│   └── main.dart
-├── test/
-│   └── widget_test.dart
-├── docs/
-│   ├── PRODUCT_BRIEF.md
-│   └── ARCHITECTURE.md
-├── .github/
-│   └── workflows/
-│       └── flutter-ci.yml
-├── analysis_options.yaml
-├── .gitignore
-├── pubspec.yaml
-├── CHANGELOG.md
-└── ROADMAP.md
-```
 
 ## Getting started
 
 Requires the Flutter SDK and a configured Android or iOS development environment.
 
-```bash
-flutter pub get
-flutter analyze
-flutter test
-flutter run
-```
+    flutter pub get
+    flutter analyze
+    flutter test
+    flutter run
 
-Generate platform-specific runner folders with `flutter create . --platforms=android,ios` from the project root when the Flutter SDK is available.
+Generate platform runner folders with:
+
+    flutter create . --platforms=android,ios
+
+## Repository structure
+
+    .
+    ├── lib/
+    │   └── main.dart
+    ├── test/
+    │   └── widget_test.dart
+    ├── docs/
+    │   ├── PRODUCT_BRIEF.md
+    │   ├── ARCHITECTURE.md
+    │   └── CALL_INTEGRATION.md
+    ├── .github/workflows/flutter-ci.yml
+    ├── pubspec.yaml
+    ├── CHANGELOG.md
+    └── ROADMAP.md
 
 ## Project principles
 
-1. **Solve the real problem.** Do not invent features before understanding the intended users.
-2. **Mobile-first.** Design for touch, small screens, accessibility, and platform conventions.
-3. **Build in deliberate increments.** Keep the app runnable and testable as it grows.
-4. **Protect user data.** Make privacy, validation, and secure defaults part of design decisions.
-5. **Document decisions.** Keep this README, the roadmap, and changelog current.
+1. Keep the soundboard useful offline.
+2. Make playback user-controlled and easy to disable.
+3. Avoid collecting call data or contacts.
+4. Never claim automatic call-end behavior until verified on real devices.
+5. Keep the README, roadmap, and changelog current.
 
 ## Project documents
 
 - [Product brief](docs/PRODUCT_BRIEF.md)
 - [Architecture decisions](docs/ARCHITECTURE.md)
+- [Call-end integration research](docs/CALL_INTEGRATION.md)
 - [Roadmap](ROADMAP.md)
 - [Changelog](CHANGELOG.md)
-
----
-
-*SLAM is in its foundation phase. The product brief will become specific once the initial requirements are reviewed.*
