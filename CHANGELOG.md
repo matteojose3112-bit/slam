@@ -24,12 +24,12 @@ All notable project changes are recorded here.
 
 ### Fixed
 - Repaired malformed volume-label string interpolation.
-- Added the missing TextField import to the widget test after CI static analysis identified it.
+- Added the TextField import to the widget test and migrated both app and test to the standalone `material_ui` package after CI exposed Flutter 3.50 Material API deprecation.
 - Made the Pro preview flag immutable.
 
 ### Technical notes
 - Audio URLs were reconstructed from pasted source code and require confirmation; filenames were line-break corrupted.
 - Remote audio currently requires network access; local asset bundling/caching remains future work.
 - Automatic ordinary cellular call-end playback is not implemented.
-- The previous CI run reached static analysis but failed on the missing TextField test import; the import was corrected and a new run is pending.
+- The previous CI runs exposed a missing TextField test import and then Flutter 3.50 Material import deprecations; both were addressed and the latest source commit has a new CI run pending.
 - See docs/REPOSITORY_ASSESSMENT.md for the current technical and release-readiness assessment.
