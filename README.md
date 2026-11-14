@@ -1,17 +1,30 @@
 # SLAM
 
-**Choose your weapon. End the call right.**
+**Touchscreens are too polite. End the call right.**
 
-SLAM is a retro-inspired Flutter mobile app prototype built around the theatrical sound of hanging up an old telephone.
+SLAM is a retro-inspired entertainment app prototype built around the theatrical sound of hanging up an old telephone. Its appeal is humor, nostalgia, expressive timing, and shareable short-form content—not call management or productivity.
 
 ## Current prototype
 
 - Four phone styles: classic rotary, payphone, 90s office phone, and cordless
 - Three-screen flow: home soundboard → dialer → simulated active call
 - Large red SLAM action to play the selected recording
-- Low volume is the free-tier default; high volume is a Pro feature concept
+- Home-screen preview controls for each sound
+- Low volume is the default; high volume is a Pro concept only
 - Remote audio playback with selected clip offsets
 - Clear disclosure that the dialer is a simulation and does not place calls
+
+## Product direction
+
+The three initial creative territories are:
+
+1. **Corporate burnout:** deadpan workplace humor and meeting fatigue.
+2. **Gaming / internet rage quit:** exaggerated reactions to familiar gaming and group-chat frustrations.
+3. **Vintage-tech nostalgia:** tactile sound, retro-inspired UI, and mechanical audio payoff.
+
+The preferred hero line is **“Touchscreens are too polite. End the call right.”**
+
+See [docs/PRODUCT_STRATEGY.md](docs/PRODUCT_STRATEGY.md) for audience profiles, short-form video concepts, taglines, creator briefs, product ideas, platform evaluation, monetization hypotheses, measurement, and developer interview questions.
 
 ## Sound collection
 
@@ -24,7 +37,11 @@ SLAM is a retro-inspired Flutter mobile app prototype built around the theatrica
 
 The URLs were reconstructed from the stakeholder's pasted code, whose filenames were partially corrupted by line breaks. They need confirmation against the original source. Recordings are remote and playback currently requires network access.
 
-## Important platform note
+## Platform status and strategy
+
+The current repository is a **Flutter** prototype. A low-friction **PWA** may be a better acquisition surface for creator link-in-bio traffic, but that is not yet a platform decision. The recommended next experiment is a narrow browser prototype that tests one-tap playback on iOS Safari and Android Chrome before considering a rewrite or parallel web client.
+
+Mobile browsers restrict autoplay. Audio must be initialized in response to a user gesture, and reliable low-latency playback needs preloading, caching, and real-device testing.
 
 The current flow is a **simulation**. It does not place or control real phone calls and does not automatically detect ordinary cellular call endings.
 
@@ -35,7 +52,9 @@ SLAM must play locally on the user's device, never inject sound into the other p
 
 ## Monetization prototype
 
-The free-tier / Pro distinction is UI-only. High volume displays an explanatory gate, but no real purchase, subscription, restore-purchase, or entitlement implementation exists. The example $2.99 price from the source code is not an active offer.
+The free-tier / Pro distinction is UI-only. High volume displays an explanatory gate, but no real purchase, subscription, restore-purchase, or entitlement implementation exists. The example $2.99 price from the source code is a hypothesis, not an active offer.
+
+Potential future paid value to validate includes licensed sound packs, custom presets, and creator-oriented skit templates. Do not implement billing until willingness to pay and the entitlement model are validated.
 
 ## Technology
 
@@ -64,6 +83,7 @@ The free-tier / Pro distinction is UI-only. High volume displays an explanatory 
     ├── test/widget_test.dart
     ├── docs/
     │   ├── PRODUCT_BRIEF.md
+    │   ├── PRODUCT_STRATEGY.md
     │   ├── ARCHITECTURE.md
     │   └── CALL_INTEGRATION.md
     ├── .github/workflows/flutter-ci.yml
@@ -73,8 +93,9 @@ The free-tier / Pro distinction is UI-only. High volume displays an explanatory 
 
 ## Project principles
 
-1. Use the stakeholder's intended recorded sounds rather than the retired synthetic prototype.
-2. Keep playback user-controlled and volume conservative by default.
-3. Be explicit about simulated calls and platform limitations.
-4. Do not claim purchases or automatic call-end behavior before implementation and verification.
-5. Keep the README, roadmap, and changelog current.
+1. Keep the core interaction immediate, playful, and user-controlled.
+2. Use only recordings with confirmed distribution and commercial-use rights.
+3. Keep playback volume conservative by default.
+4. Be explicit about simulated calls and platform limitations.
+5. Do not claim purchases or automatic call-end behavior before implementation and verification.
+6. Keep the README, roadmap, and changelog current.
