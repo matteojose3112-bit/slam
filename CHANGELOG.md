@@ -6,12 +6,16 @@ All notable project changes are recorded here.
 
 ### Added
 - Established SLAM as a dedicated Dart and Flutter cross-platform mobile project.
-- Documented initial technical direction, product discovery principles, and phased roadmap.
-- Added a Material 3 starter experience, Dart package configuration, lint rules, and a widget smoke test.
-- Added GitHub Actions formatting, static-analysis, and test steps, plus Flutter/Dart ignore rules.
-- Migrated to Flutter's standalone `material_ui` package and cleaned up const-constructor lints.
-- Verified the foundation app on Flutter 3.50 stable: formatting, static analysis, and the widget smoke test all pass in GitHub Actions.
+- Added a dark retro-inspired call sign-off soundboard with five selectable effects.
+- Added locally synthesized WAV previews for a handset slam, mechanical disconnect, busy signal, record stop, and cinematic impact.
+- Added local audio playback with audioplayers and temporary-file handling with path_provider.
+- Added widget tests for the soundboard, selection behavior, and call-integration notice.
+- Documented the product brief and Android/iOS call-end integration constraints.
 
-### Planned
-- Add the initial Flutter app scaffold, baseline tests, and continuous integration.
-- Refine the product brief after reviewing the original requirements.
+### Changed
+- Replaced the generic foundation screen with the first SLAM product prototype.
+- Reworked the roadmap around soundboard MVP, device validation, and platform-specific call integration.
+
+### Technical notes
+- Automatic ordinary cellular call-end playback is not implemented.
+- iOS CallKit is intended for calls managed by the app; Android call-state observation requires a separate native feasibility and permission review.
