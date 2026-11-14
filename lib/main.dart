@@ -279,8 +279,7 @@ class _SlamHomeState extends State<SlamHome> {
               children: [
                 Expanded(
                   child: Text(
-                    'VOLUME: ${_isHighVolume ? 'HIGH' : 'LOW'}'
-                    ${_isPro ? '' : '  ·  HIGH IS PRO'},
+                    'VOLUME: ${_isHighVolume ? 'HIGH' : 'LOW'}${_isPro ? '' : '  ·  HIGH IS PRO'}',
                     style: const TextStyle(
                       fontSize: 11,
                       fontWeight: FontWeight.w800,
