@@ -23,10 +23,13 @@ All notable project changes are recorded here.
 - Expanded README and roadmap to include creator-led validation and a PWA experiment without prematurely committing to a platform rewrite.
 
 ### Fixed
-- Repaired malformed volume-label string interpolation that caused the latest Flutter CI formatting step to fail.
+- Repaired malformed volume-label string interpolation.
+- Added the missing TextField import to the widget test after CI static analysis identified it.
+- Made the Pro preview flag immutable.
 
 ### Technical notes
 - Audio URLs were reconstructed from pasted source code and require confirmation; filenames were line-break corrupted.
 - Remote audio currently requires network access; local asset bundling/caching remains future work.
 - Automatic ordinary cellular call-end playback is not implemented.
-- The latest CI run failed at Dart parsing/formatting; analysis and tests were skipped. A new run is required to verify the fix.
+- The previous CI run reached static analysis but failed on the missing TextField test import; the import was corrected and a new run is pending.
+- See docs/REPOSITORY_ASSESSMENT.md for the current technical and release-readiness assessment.
