@@ -8,7 +8,7 @@ SLAM is a retro-inspired mobile soundboard built with **Dart + Flutter** for And
 
 - Five selectable sound effects
 - In-app preview and local playback
-- Original prototype WAV sounds synthesized in Dart
+- Original prototype WAV sounds synthesized by a dedicated Dart audio service
 - Dark retro-inspired interface with a bright lime accent
 - Offline-first: no account or backend required
 
