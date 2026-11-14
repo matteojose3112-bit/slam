@@ -183,6 +183,7 @@ class _SoundboardScreenState extends State<SoundboardScreen> {
           final click = exp(-time * 95);
           sample = (sin(2 * pi * 1850 * time) * click * 0.62) +
               (noise * click * 0.28);
+          break;
         case 'busy':
           final phase = time % 0.8;
           final envelope = phase < 0.38 ? 1.0 : 0.0;
@@ -190,16 +191,19 @@ class _SoundboardScreenState extends State<SoundboardScreen> {
                   sin(2 * pi * 620 * time)) *
               0.22 *
               envelope;
+          break;
         case 'vinyl':
           final progress = (time / duration).clamp(0.0, 1.0);
           final frequency = 760 - (progress * 570);
           final envelope = (1 - progress) * (1 - progress);
           sample = sin(2 * pi * frequency * time) * envelope * 0.72;
+          break;
         case 'impact':
           final low = sin(2 * pi * 72 * time) * exp(-time * 7);
           final body = sin(2 * pi * 155 * time) * exp(-time * 13);
           final transient = noise * exp(-time * 48);
           sample = (low * 0.65) + (body * 0.35) + (transient * 0.2);
+          break;
         default:
           final firstClack = exp(-time * 58);
           final secondTime = (time - 0.105).clamp(0.0, 1.0);
