@@ -103,6 +103,7 @@ class _SlamHomeState extends State<SlamHome> {
   final AudioPlayer _player = AudioPlayer();
   StreamSubscription<void>? _completionSubscription;
   Timer? _clipTimer;
+  int _playbackGeneration = 0;
 
   SlamScreen _screen = SlamScreen.home;
   String _selectedPhone = 'rotary';
@@ -126,6 +127,7 @@ class _SlamHomeState extends State<SlamHome> {
   }
 
   Future<void> _playSlam() async {
+    final generation = ++_playbackGeneration;
     final sound = _selectedSound;
     final url = slamAudioUrls[sound.assetKey];
     if (url == null) return;
@@ -138,19 +140,28 @@ class _SlamHomeState extends State<SlamHome> {
 
     try {
       await _player.stop();
+      if (!mounted || generation != _playbackGeneration) return;
       await _player.play(
         UrlSource(url),
         position: sound.offset,
         volume: _isHighVolume && _isPro ? 1.0 : 0.42,
       );
+      if (!mounted || generation != _playbackGeneration) return;
       if (sound.clipDuration != null) {
         _clipTimer = Timer(sound.clipDuration!, () async {
-          await _player.stop();
-          if (mounted) setState(() => _isPlaying = false);
+          if (!mounted || generation != _playbackGeneration) return;
+          try {
+            await _player.stop();
+          } catch (_) {
+            // The player may already have stopped or been disposed.
+          }
+          if (mounted && generation == _playbackGeneration) {
+            setState(() => _isPlaying = false);
+          }
         });
       }
     } catch (_) {
-      if (mounted) {
+      if (mounted && generation == _playbackGeneration) {
         setState(() {
           _isPlaying = false;
           _audioError =
@@ -195,6 +206,7 @@ class _SlamHomeState extends State<SlamHome> {
 
   @override
   void dispose() {
+    _playbackGeneration++;
     _clipTimer?.cancel();
     _completionSubscription?.cancel();
     _nameController.dispose();
