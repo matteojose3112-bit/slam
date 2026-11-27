@@ -175,13 +175,14 @@ class _SlamHomeState extends State<SlamHome> {
     setState(() => _isHighVolume = !_isHighVolume);
   }
 
+  String get _normalizedContactName {
+    final normalized = _nameController.text.trim().replaceAll(RegExp(r'\s+'), ' ');
+    if (normalized.isEmpty) return 'Someone';
+    return normalized.length > 40 ? normalized.substring(0, 40) : normalized;
+  }
+
   void _openCallSimulation() {
-    final normalizedName = _nameController.text.trim().replaceAll(RegExp(r'\s+'), ' ');
-    _contactName = normalizedName.isEmpty
-        ? 'Someone'
-        : normalizedName.length > 40
-            ? normalizedName.substring(0, 40)
-            : normalizedName;
+    _contactName = _normalizedContactName;
     setState(() => _screen = SlamScreen.call);
   }
 
@@ -466,7 +467,7 @@ class _SlamHomeState extends State<SlamHome> {
           ),
           const SizedBox(height: 16),
           Text(
-            'Ready to call ${_nameController.text.trim().isEmpty ? 'Someone' : _nameController.text.trim()}.',
+            'Ready to call $_normalizedContactName.',
             textAlign: TextAlign.center,
             style: const TextStyle(color: Color(0xFF888888)),
           ),
@@ -479,7 +480,7 @@ class _SlamHomeState extends State<SlamHome> {
                 padding: const EdgeInsets.symmetric(vertical: 17),
               ),
               onPressed: _openCallSimulation,
-              child: Text('CALL ${_nameController.text.trim().isEmpty ? 'CONTACT' : _nameController.text.trim().toUpperCase()}'),
+              child: Text('CALL ${_normalizedContactName.toUpperCase()}'),
             ),
           ),
         ],
