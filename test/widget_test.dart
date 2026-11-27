@@ -3,12 +3,13 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:slam/main.dart';
 
 void main() {
-  testWidgets('shows four phone choices and low-volume free default', (tester) async {
+  testWidgets('shows all four phone choices and low-volume free default', (tester) async {
     await tester.pumpWidget(const SlamApp());
     expect(find.text('PHONE SLAM'), findsOneWidget);
     expect(find.text('CLASSIC ROTARY'), findsOneWidget);
     expect(find.text('PAY PHONE'), findsOneWidget);
     expect(find.text('90s OFFICE PHONE'), findsOneWidget);
+    await tester.scrollUntilVisible(find.text('CORDLESS PHONE'), 200);
     expect(find.text('CORDLESS PHONE'), findsOneWidget);
     expect(find.textContaining('VOLUME: LOW'), findsOneWidget);
     expect(find.text('OPEN DIALER'), findsOneWidget);
@@ -34,5 +35,22 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('UNLOCK HIGH VOLUME'), findsOneWidget);
     expect(find.textContaining('In-app purchases are not connected'), findsOneWidget);
+  });
+
+  testWidgets('limits and normalizes contact names in the call simulation', (tester) async {
+    await tester.pumpWidget(const SlamApp());
+    await tester.tap(find.text('OPEN DIALER'));
+    await tester.pumpAndSettle();
+
+    final field = tester.widget<TextField>(find.byType(TextField));
+    expect(field.maxLength, 40);
+
+    await tester.enterText(find.byType(TextField), '  Alice   Smith  ');
+    await tester.pump();
+    await tester.tap(find.text('CALL ALICE SMITH'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('ACTIVE CALL SIMULATION'), findsOneWidget);
+    expect(find.text('Alice Smith'), findsOneWidget);
   });
 }
