@@ -96,3 +96,8 @@ See [docs/REPOSITORY_ASSESSMENT.md](docs/REPOSITORY_ASSESSMENT.md) for the curre
 - Use only audio with documented rights for distribution and commercial use.
 - Do not encourage users to physically slam or damage their phones.
 - Do not replace the Flutter implementation until the PWA experiment provides evidence.
+
+
+## Maintenance review — 2026-11-27
+
+The current release gate remains: confirm the original recording URLs and rights, verify all clips on physical devices, and obtain a passing current CI run. Validate one-tap browser playback before deciding whether to build a PWA. Do not implement billing, call-state permissions, call recording, or call-audio injection as part of this documentation pass. Native call behavior must be researched separately for Android and iOS.
