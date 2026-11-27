@@ -3,8 +3,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:slam/main.dart';
 
 void main() {
-  testWidgets('shows four phone choices and low-volume free default', (tester) async {
+  testWidgets('shows all four phone choices and low-volume free default', (tester) async {
     await tester.pumpWidget(const SlamApp());
+    await tester.scrollUntilVisible(find.text('CORDLESS PHONE'), 200);
     expect(find.text('PHONE SLAM'), findsOneWidget);
     expect(find.text('CLASSIC ROTARY'), findsOneWidget);
     expect(find.text('PAY PHONE'), findsOneWidget);
@@ -41,13 +42,15 @@ void main() {
     await tester.tap(find.text('OPEN DIALER'));
     await tester.pumpAndSettle();
 
-    final longName = List.filled(50, 'A').join();
-    await tester.enterText(find.byType(TextField), '  $longName   ');
+    final field = tester.widget<TextField>(find.byType(TextField));
+    expect(field.maxLength, 40);
+
+    await tester.enterText(find.byType(TextField), '  Alice   Smith  ');
     await tester.pump();
-    await tester.tap(find.textContaining('CALL '));
+    await tester.tap(find.text('CALL ALICE SMITH'));
     await tester.pumpAndSettle();
 
     expect(find.text('ACTIVE CALL SIMULATION'), findsOneWidget);
-    expect(find.text(List.filled(40, 'A').join()), findsOneWidget);
+    expect(find.text('Alice Smith'), findsOneWidget);
   });
 }
