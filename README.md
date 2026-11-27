@@ -99,3 +99,8 @@ Potential future paid value to validate includes licensed sound packs, custom pr
 4. Be explicit about simulated calls and platform limitations.
 5. Do not claim purchases or automatic call-end behavior before implementation and verification.
 6. Keep the README, roadmap, and changelog current.
+
+
+## Documentation maintenance — 2026-11-27
+
+SLAM remains a Flutter concept prototype, not a released call-management product. The dialer is simulated and does not place or observe ordinary cellular calls. Remote audio URLs were reconstructed from damaged pasted source and still require confirmation; distribution and commercial-use rights must be documented before release. The Pro gate is UI-only—no billing or entitlement system exists. A PWA remains an experiment, not an approved platform rewrite.
