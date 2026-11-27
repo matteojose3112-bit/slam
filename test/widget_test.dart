@@ -35,7 +35,25 @@ void main() {
     expect(find.text('UNLOCK HIGH VOLUME'), findsOneWidget);
     expect(find.textContaining('In-app purchases are not connected'), findsOneWidget);
   });
+
+  testWidgets('limits and normalizes contact names in the call simulation', (tester) async {
+    await tester.pumpWidget(const SlamApp());
+    await tester.tap(find.text('OPEN DIALER'));
+    await tester.pumpAndSettle();
+
+    final longName = List.filled(50, 'A').join();
+    await tester.enterText(find.byType(TextField), '  $longName   ');
+    await tester.pump();
+    await tester.tap(find.textContaining('CALL '));
+    await tester.pumpAndSettle();
+
+    expect(find.text('ACTIVE CALL SIMULATION'), findsOneWidget);
+    expect(find.text(List.filled(40, 'A').join()), findsOneWidget);
+  });
+
 }
+
+
 
 
   testWidgets('limits and normalizes contact names in the call simulation', (tester) async {
