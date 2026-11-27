@@ -176,9 +176,12 @@ class _SlamHomeState extends State<SlamHome> {
   }
 
   void _openCallSimulation() {
-    _contactName = _nameController.text.trim().isEmpty
+    final normalizedName = _nameController.text.trim().replaceAll(RegExp(r'\\s+'), ' ');
+    _contactName = normalizedName.isEmpty
         ? 'Someone'
-        : _nameController.text.trim();
+        : normalizedName.length > 40
+            ? normalizedName.substring(0, 40)
+            : normalizedName;
     setState(() => _screen = SlamScreen.call);
   }
 
@@ -442,6 +445,8 @@ class _SlamHomeState extends State<SlamHome> {
           const SizedBox(height: 28),
           TextField(
             controller: _nameController,
+            maxLength: 40,
+            textInputAction: TextInputAction.done,
             decoration: InputDecoration(
               hintText: "Who's getting slammed?",
               filled: true,
