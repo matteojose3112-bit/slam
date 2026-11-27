@@ -1,5 +1,11 @@
 # Changelog
 
+## Documentation maintenance — 2026-11-27
+
+- Reaffirmed that SLAM is a Flutter prototype and the call flow is a simulation, not real call control.
+- Kept audio URL confirmation, recording rights, physical-device playback, current CI verification, PWA validation, and real billing as outstanding work.
+- No application code, platform permissions, billing, or release configuration changed.
+
 All notable project changes are recorded here.
 
 ## [Unreleased]
