@@ -176,7 +176,7 @@ class _SlamHomeState extends State<SlamHome> {
   }
 
   void _openCallSimulation() {
-    final normalizedName = _nameController.text.trim().replaceAll(RegExp(r'\\s+'), ' ');
+    final normalizedName = _nameController.text.trim().replaceAll(RegExp(r'\s+'), ' ');
     _contactName = normalizedName.isEmpty
         ? 'Someone'
         : normalizedName.length > 40
