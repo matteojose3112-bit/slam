@@ -5,11 +5,11 @@ import 'package:slam/main.dart';
 void main() {
   testWidgets('shows all four phone choices and low-volume free default', (tester) async {
     await tester.pumpWidget(const SlamApp());
-    await tester.scrollUntilVisible(find.text('CORDLESS PHONE'), 200);
     expect(find.text('PHONE SLAM'), findsOneWidget);
     expect(find.text('CLASSIC ROTARY'), findsOneWidget);
     expect(find.text('PAY PHONE'), findsOneWidget);
     expect(find.text('90s OFFICE PHONE'), findsOneWidget);
+    await tester.scrollUntilVisible(find.text('CORDLESS PHONE'), 200);
     expect(find.text('CORDLESS PHONE'), findsOneWidget);
     expect(find.textContaining('VOLUME: LOW'), findsOneWidget);
     expect(find.text('OPEN DIALER'), findsOneWidget);
