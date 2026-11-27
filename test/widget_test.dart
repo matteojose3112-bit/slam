@@ -36,3 +36,18 @@ void main() {
     expect(find.textContaining('In-app purchases are not connected'), findsOneWidget);
   });
 }
+
+
+  testWidgets('limits and normalizes contact names in the call simulation', (tester) async {
+    await tester.pumpWidget(const SlamApp());
+    await tester.tap(find.text('OPEN DIALER'));
+    await tester.pumpAndSettle();
+
+    await tester.enterText(find.byType(TextField), '  ${'A' * 50}   ');
+    await tester.pump();
+    await tester.tap(find.textContaining('CALL '));
+    await tester.pumpAndSettle();
+
+    expect(find.text('ACTIVE CALL SIMULATION'), findsOneWidget);
+    expect(find.text('A' * 40), findsOneWidget);
+  });
